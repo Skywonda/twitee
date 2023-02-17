@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @default(uuid()) @db.Uuid
+  name     String @db.VarChar(255)
+  email    String @unique @db.VarChar(255)
+  password String
+  posts    Post[]
+
+  created_at DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at DateTime  @updatedAt @db.Timestamptz(6)
+  like       Like[]
+  comment    Comment[]
+
+  @@index([email, created_at(sort: Desc)])
+  @@map("user")
+}
+
+model Post {
+  id      String @unique @default(uuid()) @db.Uuid
+  owner   User   @relation(fields: [ownerId], references: [id])
+  ownerId String @db.Uuid
+  content String
+
+  created_at DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at DateTime  @updatedAt @db.Timestamptz(6)
+  like       Like[]
+  comment    Comment[]
+
+  @@index([ownerId, created_at(sort: Desc)])
+  @@map("post")
+}
+
+model Like {
+  id     String @id @default(uuid()) @db.Uuid
+  post   Post   @relation(fields: [postId], references: [id])
+  postId String @db.Uuid
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @db.Uuid
+
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @updatedAt @db.Timestamptz(6)
+
+  @@map("like")
+}
+
+model Comment {
+  id       String @id @default(uuid())
+  content  String
+  post     Post   @relation(fields: [postId], references: [id])
+  postId   String @db.Uuid
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String @db.Uuid
+
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @updatedAt @db.Timestamptz(6)
+
+  @@map("comment")
+}
