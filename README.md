@@ -2,6 +2,12 @@
 
 TwitApp is a simple web application that allows users to post and interact with short messages called "twits". This app supports user registration, authentication, and authorization.
 
+## Base url
+
+```
+https://twitee.cyclic.app
+```
+
 ## Features
 
 - User can register.
