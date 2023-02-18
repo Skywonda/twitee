@@ -15,10 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const user_services_1 = __importDefault(require("../services/user.services"));
 const moment_1 = __importDefault(require("moment"));
 const errors_1 = require("../errors/errors");
+const mails_1 = require("../utils/mails");
 exports.default = {
     createUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield user_services_1.default.createUser(req.body);
+            (0, mails_1.welcomeMail)(user.email);
             res.status(201).json({
                 msg: "User created!",
                 user,

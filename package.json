@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc",
     "start": "node ./dist/app.js",
     "start:dev": "ts-node-dev --respawn --transpile-only --exit-child --watch src ./src/app.ts",
     "build": "prisma migrate deploy"

@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const posts_controller_1 = __importDefault(require("../controllers/posts.controller"));
+const authentication_1 = require("../middleware/authentication");
+const postRouter = (0, express_1.Router)();
+const unprotectedRoute = (0, express_1.Router)();
+postRouter.use(unprotectedRoute);
+postRouter.use(authentication_1.verifyUser);
+postRouter.route("/").post(posts_controller_1.default.createPost);
+postRouter.route("/like").post(posts_controller_1.default.likePost);
+postRouter.route("/dislike").post(posts_controller_1.default.dislikePost);
+postRouter.route("/comment").post(posts_controller_1.default.addComment);
+postRouter.route("/:id").delete(posts_controller_1.default.deletePost);
+unprotectedRoute.route("/all").get(posts_controller_1.default.getAllPosts);
+unprotectedRoute.route("/user/:id").get(posts_controller_1.default.getUserPosts);
+unprotectedRoute.route("/:id").get(posts_controller_1.default.getSinglePost);
+exports.default = postRouter;

@@ -8,11 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const config = require("../config");
-const JwtStrategy = require("passport-jwt").Strategy;
+exports.verifyUser = void 0;
+const config_1 = __importDefault(require("../config"));
+const passport_jwt_1 = __importDefault(require("passport-jwt"));
+const JwtStrategy = passport_jwt_1.default.Strategy;
 const passport = require("passport");
-const { findUserById } = require("../services/user.services");
+const user_services_1 = __importDefault(require("../services/user.services"));
 const tokenExtractor = function (req) {
     let authorization = req.headers.authorization;
     if (authorization) {
@@ -27,11 +32,23 @@ const tokenExtractor = function (req) {
 };
 const opts = {};
 opts.jwtFromRequest = tokenExtractor;
-opts.secretOrKey = config.jwt.secret;
-exports.jwtPassport = passport.use(new JwtStrategy(opts, (payload, done) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield findUserById(payload.id);
+opts.secretOrKey = config_1.default.jwt.secret;
+passport.use(new JwtStrategy(opts, (payload, done) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield user_services_1.default.findUserById(payload.id);
     if (!user)
         return done(null, false);
     return done(null, user);
 })));
-exports.verifyUser = passport.authenticate("jwt", { session: false });
+function verifyUser(req, res, next) {
+    passport.authenticate("jwt", { session: false }, (err, user) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+        req.user = user;
+        next();
+    })(req, res, next);
+}
+exports.verifyUser = verifyUser;

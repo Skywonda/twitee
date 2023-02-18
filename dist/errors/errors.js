@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthenticationError = exports.ConflictError = exports.NotFoundError = exports.BadRequestError = void 0;
+exports.AuthorizationError = exports.AuthenticationError = exports.ConflictError = exports.NotFoundError = exports.BadRequestError = void 0;
 class AppError extends Error {
     constructor(message) {
         super(message);
@@ -34,3 +34,10 @@ class AuthenticationError extends AppError {
     }
 }
 exports.AuthenticationError = AuthenticationError;
+class AuthorizationError extends AppError {
+    constructor(message) {
+        super(message);
+        this.statusCode = 409;
+    }
+}
+exports.AuthorizationError = AuthorizationError;

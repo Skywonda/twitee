@@ -41,9 +41,9 @@ class UserService {
     }
     static findUserById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield prisma.user.findUnique({ where: { id } });
-            if (!user)
-                throw new errors_1.NotFoundError("User not found!");
+            const user = yield prisma.user.findUnique({
+                where: { id },
+            });
             return user;
         });
     }

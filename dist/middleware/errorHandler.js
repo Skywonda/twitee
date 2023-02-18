@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = (err, req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(err);
     let customError = {
         statusCode: err.statusCode || 500,
         message: err.message || err.msg || "An error occured!",

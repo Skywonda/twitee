@@ -20,7 +20,7 @@ exports.default = {
         return __awaiter(this, void 0, void 0, function* () {
             const { email, password } = req.body;
             const user = yield user_services_1.default.findUserByEmail(email);
-            if (!email)
+            if (!user)
                 throw new errors_1.AuthenticationError("Invalid credentials!");
             const validPassword = yield compareHash(password, user.password);
             if (!validPassword)
@@ -31,6 +31,12 @@ exports.default = {
                 name: user.name,
             });
             res.cookie("jwt_token", token).json({ msg: "login successful!", token });
+        });
+    },
+    logout(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            res.clearCookie("jwt_token");
+            res.json({ msg: "Logout succesful!" });
         });
     },
 };
