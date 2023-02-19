@@ -6,7 +6,7 @@ import "express-async-errors";
 import routers from "./routes/index";
 
 const app = express();
-app.use(morgan("dev"));
+app.use(morgan("combined"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.JWT_SECRET));

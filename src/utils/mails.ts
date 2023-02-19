@@ -4,10 +4,12 @@ import config from "../config";
 function sendEmail(opt: any) {
   const transporter = nodemailer.createTransport({
     service: "gmail",
+    port: 587,
     auth: {
       user: config.nodemailer.user,
       pass: config.nodemailer.pass,
     },
+    debug: true,
   });
 
   const mailOptions = {
