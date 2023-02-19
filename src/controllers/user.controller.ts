@@ -8,7 +8,8 @@ import { welcomeMail } from "../utils/mails";
 export default {
   async createUser(req: Request, res: Response) {
     const user = await UserService.createUser(req.body);
-    welcomeMail(user.email);
+    const send = welcomeMail(user.email);
+    console.log(send);
     res.status(201).json({
       msg: "User created!",
       user,

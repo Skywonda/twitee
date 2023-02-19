@@ -6,10 +6,11 @@ export default async (
   res: Response,
   next: NextFunction
 ) => {
-  Logger.info(err);
   let customError = {
     statusCode: err.statusCode || 500,
     message: err.message || err.msg || "An error occured!",
   };
+  Logger.error(err);
+  console.log(err);
   return res.status(customError.statusCode).json({ msg: customError.message });
 };
