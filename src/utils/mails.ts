@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 import config from "../config";
 import Logger from "../lib/logger";
 
-function sendEmail(opt: any) {
+async function sendEmail(opt: any) {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     port: 587,
@@ -20,15 +20,18 @@ function sendEmail(opt: any) {
     text: opt.body,
   };
 
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      Logger.error(error);
-    } else {
-      Logger.info("Email sent: " + info.response);
-    }
+  await new Promise((resolve, reject) => {
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        Logger.error(error);
+        reject(error);
+      } else {
+        Logger.info("Email sent: " + info.response);
+        resolve(info);
+      }
+    });
   });
 }
-
 function welcomeMail(email: string) {
   const opt = {
     email,
