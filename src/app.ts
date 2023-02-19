@@ -4,6 +4,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import "express-async-errors";
 import routers from "./routes/index";
+import Logger from "./lib/logger";
 
 const app = express();
 app.use(morgan("combined"));
@@ -21,5 +22,5 @@ app.use(errorHandler);
 // Start server
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+  Logger.info(`server running on port ${PORT}`);
 });

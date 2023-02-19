@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import config from "../config";
+import Logger from "../lib/logger";
 
 function sendEmail(opt: any) {
   const transporter = nodemailer.createTransport({
@@ -21,9 +22,9 @@ function sendEmail(opt: any) {
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
-      console.log(error);
+      Logger.error(error);
     } else {
-      console.log("Email sent: " + info.response);
+      Logger.info("Email sent: " + info.response);
     }
   });
 }
