@@ -7,8 +7,12 @@ async function sendEmail(opt: any) {
     service: "gmail",
     port: 587,
     auth: {
+      type: "OAUTH2",
       user: config.nodemailer.user,
-      pass: config.nodemailer.pass,
+      clientId: config.nodemailer.client_id,
+      clientSecret: config.nodemailer.client_secret,
+      accessToken: config.nodemailer.access_token,
+      refreshToken: config.nodemailer.refresh_token,
     },
     debug: true,
   });
@@ -32,6 +36,7 @@ async function sendEmail(opt: any) {
     });
   });
 }
+
 function welcomeMail(email: string) {
   const opt = {
     email,

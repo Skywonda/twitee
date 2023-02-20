@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@prisma/client": "^4.10.1",
+    "@sendgrid/mail": "^7.7.0",
     "@types/nodemailer": "^6.4.7",
     "argon2": "^0.30.3",
     "bullmq": "^3.7.0",

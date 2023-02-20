@@ -5,6 +5,11 @@ import cookieParser from "cookie-parser";
 import "express-async-errors";
 import routers from "./routes/index";
 import Logger from "./lib/logger";
+import nodemailer from "nodemailer";
+
+nodemailer.createTestAccount((err, account) => {
+  console.log(account);
+});
 
 const app = express();
 app.use(morgan("combined"));
