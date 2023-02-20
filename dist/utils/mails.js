@@ -21,7 +21,7 @@ function sendEmail(opt) {
         const transporter = nodemailer_1.default.createTransport({
             service: "gmail",
             port: 587,
-            secure: false,
+            secure: true,
             auth: {
                 type: "OAUTH2",
                 user: config_1.default.nodemailer.user,

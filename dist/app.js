@@ -10,7 +10,6 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 require("express-async-errors");
 const index_1 = __importDefault(require("./routes/index"));
 const logger_1 = __importDefault(require("./lib/logger"));
-console.log("hey bro");
 const app = (0, express_1.default)();
 app.use((0, morgan_1.default)("combined"));
 app.use(express_1.default.urlencoded({ extended: true }));
