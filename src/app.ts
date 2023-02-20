@@ -6,8 +6,6 @@ import "express-async-errors";
 import routers from "./routes/index";
 import Logger from "./lib/logger";
 
-console.log("hey bro");
-
 const app = express();
 app.use(morgan("combined"));
 
