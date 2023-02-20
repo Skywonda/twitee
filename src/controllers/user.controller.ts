@@ -9,6 +9,7 @@ export default {
   async createUser(req: Request, res: Response) {
     const user = await UserService.createUser(req.body);
     welcomeMail(user.email);
+    console.log("Email sent!");
     res.status(201).json({
       msg: "User created!",
       user,
