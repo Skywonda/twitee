@@ -20,7 +20,7 @@ exports.default = {
     createUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield user_services_1.default.createUser(req.body);
-            (0, mails_1.welcomeMail)(user.email);
+            yield (0, mails_1.welcomeMail)(user.email);
             console.log("Email sent!");
             res.status(201).json({
                 msg: "User created!",

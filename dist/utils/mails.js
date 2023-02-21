@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.welcomeMail = void 0;
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const config_1 = __importDefault(require("../config"));
+const errors_1 = require("../errors/errors");
 const logger_1 = __importDefault(require("../lib/logger"));
 function sendEmail(opt) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -38,26 +39,28 @@ function sendEmail(opt) {
             subject: opt.subject,
             text: opt.body,
         };
-        yield new Promise((resolve, reject) => {
-            transporter.sendMail(mailOptions, function (error, info) {
-                if (error) {
-                    logger_1.default.error(error);
-                    reject(error);
-                }
-                else {
-                    logger_1.default.info("Email sent: " + info.response);
-                    resolve(info);
-                }
-            });
+        const sendMail = yield transporter.sendMail(mailOptions);
+        if (!sendEmail)
+            throw new errors_1.BadRequestError("Something went wrong!");
+        console.log(sendMail);
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                logger_1.default.error(error);
+            }
+            else {
+                logger_1.default.info("Email sent: " + info.response);
+            }
         });
     });
 }
 function welcomeMail(email) {
-    const opt = {
-        email,
-        subject: "WELCOME TO TWITEE",
-        body: "You are welcome in the name of the lord",
-    };
-    sendEmail(opt);
+    return __awaiter(this, void 0, void 0, function* () {
+        const opt = {
+            email,
+            subject: "WELCOME TO TWITEE",
+            body: "You are welcome in the name of the lord",
+        };
+        yield sendEmail(opt);
+    });
 }
 exports.welcomeMail = welcomeMail;
