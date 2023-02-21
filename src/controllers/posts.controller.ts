@@ -8,8 +8,6 @@ import {
 } from "../errors/errors";
 import PostService from "../services/posts.services";
 import UserService from "../services/user.services";
-import { Prisma } from "@prisma/client";
-import { AddComment } from "../services/entity/type";
 
 export default {
   async createPost(req: Request & { user?: { id?: string } }, res: Response) {

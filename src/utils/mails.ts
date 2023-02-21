@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import config from "../config";
+import { BadRequestError } from "../errors/errors";
 import Logger from "../lib/logger";
 
 async function sendEmail(opt: any) {
@@ -25,26 +26,26 @@ async function sendEmail(opt: any) {
     text: opt.body,
   };
 
-  await new Promise((resolve, reject) => {
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        Logger.error(error);
-        reject(error);
-      } else {
-        Logger.info("Email sent: " + info.response);
-        resolve(info);
-      }
-    });
+  const sendMail = await transporter.sendMail(mailOptions);
+  if (!sendEmail) throw new BadRequestError("Something went wrong!");
+  console.log(sendMail);
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      Logger.error(error);
+    } else {
+      Logger.info("Email sent: " + info.response);
+    }
   });
 }
 
-function welcomeMail(email: string) {
+async function welcomeMail(email: string) {
   const opt = {
     email,
     subject: "WELCOME TO TWITEE",
     body: "You are welcome in the name of the lord",
   };
-  sendEmail(opt);
+  await sendEmail(opt);
 }
 
 export { welcomeMail };
