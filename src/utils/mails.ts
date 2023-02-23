@@ -27,8 +27,7 @@ async function sendEmail(opt: any) {
   };
 
   const sendMail = await transporter.sendMail(mailOptions);
-  if (!sendEmail) throw new BadRequestError("Something went wrong!");
-  console.log(sendMail);
+  if (!sendMail) throw new BadRequestError(sendMail);
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {

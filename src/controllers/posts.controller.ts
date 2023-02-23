@@ -25,7 +25,7 @@ export default {
   },
 
   async getAllPosts(req: Request, res: Response) {
-    const { name, time_format, start, end }: UserSearchQuery = req.query as any;
+    const { time_format, start, end }: UserSearchQuery = req.query as any;
     const where: PrismaQuery = {};
 
     if (time_format) {
@@ -47,11 +47,6 @@ export default {
         lte: endDate,
       } as any;
     }
-    if (name)
-      where.name = {
-        contains: name,
-        mode: "insensitive",
-      } as any;
     const post = await PostService.getAllPost(where);
     res.json({ post });
   },

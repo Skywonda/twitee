@@ -2,3 +2,55 @@
 2023-02-21 11:49:39:4939 : [32mEmail sent: 250 2.0.0 OK  1676976579 e9-20020adff349000000b002c704271b05sm1772781wrp.66 - gsmtp[39m
 2023-02-21 11:51:35:5135 : [32mserver running on port 8000[39m
 2023-02-21 11:52:53:5253 : [32mserver running on port 8000[39m
+2023-02-21 11:57:22:5722 : [32mserver running on port 8000[39m
+2023-02-21 12:00:07:07 : [32mEmail sent: 250 2.0.0 OK  1676977207 z5-20020a5d4d05000000b002c55551e6e9sm2669792wrt.108 - gsmtp[39m
+2023-02-21 12:00:27:027 : [31mThis user already exist![39m
+2023-02-21 12:06:22:622 : [32mserver running on port 8000[39m
+2023-02-21 12:06:26:626 : [32mserver running on port 8000[39m
+2023-02-23 13:43:33:4333 : [32mserver running on port 8000[39m
+2023-02-23 13:46:14:4614 : [31m[39m
+[31mInvalid `prisma.post.findMany()` invocation in[39m
+[31m/Users/skywonder/code/twitee/src/services/posts.services.ts:22:36[39m
+
+[31m  19 }[39m
+[31m  20 [39m
+[31m  21 static async getAllPost(where: any = {}) {[39m
+[31m→ 22   const post = await prisma.post.findMany({[39m
+[31m         where: {[39m
+[31m           name: {[39m
+[31m           ~~~~[39m
+[31m             contains: 'dam',[39m
+[31m             mode: 'insensitive'[39m
+[31m           }[39m
+[31m         },[39m
+[31m         include: {[39m
+[31m           owner: {[39m
+[31m             select: {[39m
+[31m               name: true[39m
+[31m             }[39m
+[31m           }[39m
+[31m         }[39m
+[31m       })[39m
+
+[31mUnknown arg `name` in where.name for type PostWhereInput. Did you mean `like`? Available args:[39m
+[31mtype PostWhereInput {[39m
+[31m  AND?: PostWhereInput | List<PostWhereInput>[39m
+[31m  OR?: List<PostWhereInput>[39m
+[31m  NOT?: PostWhereInput | List<PostWhereInput>[39m
+[31m  id?: UuidFilter | String[39m
+[31m  owner?: UserRelationFilter | UserWhereInput[39m
+[31m  ownerId?: UuidFilter | String[39m
+[31m  content?: StringFilter | String[39m
+[31m  created_at?: DateTimeFilter | DateTime[39m
+[31m  updated_at?: DateTimeFilter | DateTime[39m
+[31m  like?: LikeListRelationFilter[39m
+[31m  comment?: CommentListRelationFilter[39m
+[31m}[39m
+
+[31m[39m
+2023-02-23 13:46:29:4629 : [31mInvalid time format![39m
+2023-02-23 13:46:35:4635 : [31mStart and end value is required![39m
+2023-02-23 13:46:55:4655 : [31mInvalid time format![39m
+2023-02-23 13:47:34:4734 : [32mserver running on port 8000[39m
+2023-02-23 13:49:01:491 : [31mUser with this id does not exist![39m
+2023-02-23 13:50:44:5044 : [31mUser with this id does not exist![39m

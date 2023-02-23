@@ -40,9 +40,8 @@ function sendEmail(opt) {
             text: opt.body,
         };
         const sendMail = yield transporter.sendMail(mailOptions);
-        if (!sendEmail)
-            throw new errors_1.BadRequestError("Something went wrong!");
-        console.log(sendMail);
+        if (!sendMail)
+            throw new errors_1.BadRequestError(sendMail);
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
                 logger_1.default.error(error);
